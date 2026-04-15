@@ -840,7 +840,7 @@ func (s *sendService) sendMediaFileWithRetry(data *MediaStruct, fileData []byte,
 		}
 
 		mime, _ := mimetype.DetectReader(bytes.NewReader(fileData))
-		mimeType := mime.String()
+         mimeType := resolveMimeType(data.Filename, mime.String())
 
 		var uploadType whatsmeow.MediaType
 		var duration int
@@ -1118,7 +1118,7 @@ func (s *sendService) sendMediaUrlWithRetry(data *MediaStruct, instance *instanc
 		s.loggerWrapper.GetLogger(instance.Id).LogInfo("[%s] Leitura dos dados concluída em %v. Tamanho: %d bytes", instance.Id, time.Since(downloadStart), len(fileData))
 
 		mime, _ := mimetype.DetectReader(bytes.NewReader(fileData))
-		mimeType := mime.String()
+        mimeType := resolveMimeType(data.Filename, mime.String())
 		if strings.HasSuffix(strings.ToLower(data.Url), ".mp4") {
 			mimeType = "video/mp4"
 		}
