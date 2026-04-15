@@ -1120,7 +1120,7 @@ func (s *sendService) sendMediaUrlWithRetry(data *MediaStruct, instance *instanc
 		mime, _ := mimetype.DetectReader(bytes.NewReader(fileData))
         mimeType := resolveMimeType(data.Filename, mime.String())
 		if strings.HasSuffix(strings.ToLower(data.Url), ".mp4") {
-			mimeType = "video/mp4"
+			mimeType = resolveMimeType(data.Url, mimeType)
 		}
 
 		s.loggerWrapper.GetLogger(instance.Id).LogInfo("[%s] Tipo MIME detectado: %s", instance.Id, mimeType)
