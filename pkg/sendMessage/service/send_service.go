@@ -23,7 +23,7 @@ import (
 	if strings.HasSuffix(fileName, ".apk") {
 		return "application/vnd.android.package-archive"
 	}
-	if mimeType != "" && mimeType != "application/octet-stream" {
+	if mimeType = resolveMimeType(fileName, mimeType)" {
 		return mimeType
 	}
 	return "application/octet-stream"
