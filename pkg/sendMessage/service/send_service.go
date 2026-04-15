@@ -18,17 +18,6 @@ import (
 	"strings"
 	"time"
 
-	func resolveMimeType(fileName string, mimeType string) string {
-	fileName = strings.ToLower(fileName)
-	if strings.HasSuffix(fileName, ".apk") {
-		return "application/vnd.android.package-archive"
-	}
-	if mimeType != "" && mimeType != "application/octet-stream" {
-		return mimeType
-	}
-	return "application/octet-stream"
-}
-
 	config "github.com/EvolutionAPI/evolution-go/pkg/config"
 	instance_model "github.com/EvolutionAPI/evolution-go/pkg/instance/model"
 	logger_wrapper "github.com/EvolutionAPI/evolution-go/pkg/logger"
@@ -42,6 +31,17 @@ import (
 	"golang.org/x/net/html"
 	"google.golang.org/protobuf/proto"
 )
+
+func resolveMimeType(fileName string, mimeType string) string {
+	fileName = strings.ToLower(fileName)
+	if strings.HasSuffix(fileName, ".apk") {
+		return "application/vnd.android.package-archive"
+	}
+	if mimeType != "" && mimeType != "application/octet-stream" {
+		return mimeType
+	}
+	return "application/octet-stream"
+}
 
 type SendService interface {
 	SendText(data *TextStruct, instance *instance_model.Instance) (*MessageSendStruct, error)
