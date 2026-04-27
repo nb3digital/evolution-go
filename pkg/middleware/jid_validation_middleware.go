@@ -424,13 +424,23 @@ func (m *JIDValidationMiddleware) ValidateNumberFieldWithFormatJid() gin.Handler
 					}
 				}
 				// When formatJid is false, we accept numbers as received without validation
-			} else {
+				} else {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": "number must be a string or array of strings",
 			})
 			c.Abort()
 			return
 		}
+	} else {
+		// number field is required but missing
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "phone number is required",
+		})
+		c.Abort()
+		return
+	}
+
+	// If we modified the request, update the body
 	} else {
 		// number field is required but missing
 		c.JSON(http.StatusBadRequest, gin.H{
